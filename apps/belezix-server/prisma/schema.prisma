@@ -1,0 +1,152 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  active      Boolean?
+  createdAt   DateTime @default(now())
+  createdById String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Owner {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  updatedAt  DateTime @updatedAt
+  usersItems Users[]
+}
+
+model Client {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  updatedAt  DateTime @updatedAt
+  usersItems Users[]
+}
+
+model Service {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Users {
+  active             Boolean?
+  address            String?
+  addressComplement  String?
+  addresses          Json?
+  appointmentsTotal  Int?
+  cardId             String?
+  cash               Boolean?
+  cheque             Boolean?
+  city               String?
+  client             Client?               @relation(fields: [clientId], references: [id])
+  clientId           String?
+  cnpj               String?
+  complement         String?
+  confirmedEmail     Boolean?
+  coord              Json?
+  cpf                String?
+  createdAt          DateTime              @default(now())
+  createdById        String?
+  creditcard         Boolean?
+  debitcard          Boolean?
+  distance           Float?
+  email              String?
+  firstName          String?
+  globalId           String?
+  id                 String                @id @default(cuid())
+  isActive           Boolean?
+  isCash             Boolean?
+  isCheque           Boolean?
+  isConfirmedEmail   Boolean?
+  isCreditCard       Boolean?
+  isDebitCard        Boolean?
+  isPix              Boolean?
+  isSendedEmail      Boolean?
+  isTransferBank     Boolean?
+  lastName           String?
+  locationCoord      Json?
+  myOwnerId          String?
+  name               String?
+  nextPlan           String?
+  owner              Owner?                @relation(fields: [ownerId], references: [id])
+  ownerId            String?
+  password           String?
+  payDay             String?
+  paymentDay         String?
+  phone              String?
+  photoId            String?
+  photoUrl           String?
+  pix                Boolean?
+  plan               String?
+  profilePhotoUrl    String?
+  role               String?
+  sendedEmail        Boolean?
+  serviceIds         EnumUsersServiceIds[]
+  serviceOptions     Json?
+  totalAppointments  Int?
+  transferbank       Boolean?
+  travelDistance     Float?
+  uf                 String?
+  updatedAt          DateTime              @updatedAt
+  userAddress        String?
+  userAddresses      Json?
+  userCardId         String?
+  userCity           String?
+  userClientId       String?
+  userCnpj           String?
+  userCpf            String?
+  userEmail          String?
+  userGlobalId       String?
+  userMyOwnerId      String?
+  userNextPlan       String?
+  userOwnerId        String?
+  userPassword       String?
+  userPhone          String?
+  userPhotoId        String?
+  userPlan           String?
+  userRole           String?
+  userServiceOptions Json?
+  userUf             String?
+}
+
+model Appointment {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Request {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model RatingResult {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumUsersServiceIds {
+  Option1
+}
